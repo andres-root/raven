@@ -54,7 +54,7 @@ class Genre(models.Model):
 class BookMedia(models.Model):
 
     def image_path(self, filename):
-        path = 'books/%s/%s' % (self.book.title.replace(" ", "-"), str(filename))
+        path = 'books/%s/%s' % (self.book.title.replace(" ", "-").lower(), str(filename))
         return path
 
     book = models.ForeignKey(Book)
@@ -73,3 +73,6 @@ class BookMedia(models.Model):
     date_updated = models.DateTimeField(auto_now_add=True, auto_now=True)
     date_deleted = models.DateTimeField(blank=True, null=True,
                                         auto_now_add=False, auto_now=False)
+
+    def __unicode__(self):
+        return smart_unicode(self.book.title)
